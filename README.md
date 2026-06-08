@@ -83,7 +83,7 @@ These are the general steps you need to follow to set up your computer for devel
 
 SolTrace has been updated to use multiple ray tracing engines in addition to the prior implementation. Currently, there is no graphical user interface (it is under development).
 
-Building SolTrace (develop branch) requires a C++-17 capable compiler, Git, and cmake 3.19 or greater.  Once these are available, building can be done in the normal pattern of configure and build:
+Building SolTrace (develop branch) requires a C++-17 capable compiler and cmake 3.19 or greater.  Once these are available, building can be done in the normal pattern of configure and build:
 
 ```sh
 git clone https://github.com/NatLabRockies/SolTrace.git
