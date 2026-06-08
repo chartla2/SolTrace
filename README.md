@@ -83,7 +83,7 @@ These are the general steps you need to follow to set up your computer for devel
 
 SolTrace has been updated to use multiple ray tracing engines in addition to the prior implementation. Currently, there is no graphical user interface (it is under development).
 
-Building SolTrace (develop branch) requires a C++-17 capable compiler and cmake 3.19 or greater.  Once these are available, building can be done in the normal pattern of configure and build:
+Building SolTrace (develop branch) requires a C++-17 capable compiler, Git, and cmake 3.19 or greater.  Once these are available, building can be done in the normal pattern of configure and build:
 
 ```sh
 git clone https://github.com/NatLabRockies/SolTrace.git
@@ -95,6 +95,16 @@ cmake --build . -j4
 ```
 
 Note the `-j4` instructs cmake to use 4 processes to compile the source code. This can be adjusted if the number of processors available is greater (or less) than 4.
+
+CMake Option                    | Default Value   | Note
+:------------------------------ | :-------------- | :---
+`SOLTRACE_BUILD_GUI`            | OFF             | Build the GUI parts of Soltrace
+`SOLTRACE_BUILD_CORETRACE`      | OFF             | Legacy ray tracing backend including the strace executable
+`SOLTRACE_BUILD_EMBREE_SUPPORT` | OFF             | Build Embree support for ray tracing
+`SOLTRACE_BUILD_OPTIX_SUPPORT`  | OFF             | Build the OptiX support for ray tracing
+`SOLTRACE_BUILD_PERF_TEST`      | OFF             | Build performance tests (not built for debug)
+`SOLTRACE_ENABLE_ASAN`          | OFF             | Enable AddressSanitizer for supported builds
+`FULL_FIELD_VALIDATION_TEST`    | OFF             | Include full field validation tests
 
 ### Building with Intel's Embree Ray Tracing Library
 
@@ -112,7 +122,7 @@ On Mac, you can use Homebrew
 brew install embree
 ```
 
-On Windows (this works for Linux and MacOS as well), you need to download the binaries from the [github page](https://github.com/RenderKit/embree) (under the appropriate installation header). Follow the corresponding install instructions found there making sure to add the location of the embree DLL's to your system path.
+On Windows (this works for Linux and MacOS as well), you need to download the binaries from the [github page](https://github.com/RenderKit/embree) (under the appropriate installation header). Follow the corresponding install instructions found there, making sure to add the location of the embree DLL's to your system path as specified in the compiling instructions.
 
 Once Embree is installed, clone the SolTrace repo, configure with embree enabled, and build:
 
@@ -125,7 +135,7 @@ cmake .. -DSOLTRACE_BUILD_EMBREE_SUPPORT=ON
 cmake --build . -j4
 ```
 
-If cmake is having trouble locating the Embree install, you specify Embree's install location passing the `embree_DIR` variable to cmake. In this case the configure command would be
+If cmake is having trouble locating the Embree install, specify Embree's install location (the folder containing Embree's cmake source files) and pass the `embree_DIR` variable to cmake. In this case the configure command would be
 
 ```sh
 cmake .. -DSOLTRACE_BUILD_EMBREE_SUPPORT=ON -Dembree_DIR=<EMBREE_INSTALL_DIR>
