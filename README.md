@@ -135,7 +135,7 @@ cmake .. -DSOLTRACE_BUILD_EMBREE_SUPPORT=ON
 cmake --build . -j4
 ```
 
-If cmake is having trouble locating the Embree install, specify Embree's install location (the folder containing Embree's cmake source files) and pass the `embree_DIR` variable to cmake. In this case the configure command would be
+If cmake is having trouble locating the Embree install, specify Embree's install location and pass the `embree_DIR` variable to cmake. In this case the configure command would be
 
 ```sh
 cmake .. -DSOLTRACE_BUILD_EMBREE_SUPPORT=ON -Dembree_DIR=<EMBREE_INSTALL_DIR>
@@ -163,7 +163,6 @@ Verified build and test configurations from GPU runner development include:
 * Linux (Red Hat 8.0): gcc 12.1, CUDA 12.3, OptiX 8.0
 * Linux (Ubuntu 22.04): gcc 11.4, CUDA 12.8, OptiX 9.0
 
-CUDA 13.2 may have issues with the proprocessor, so it is not recommended to use that version.
 
 > Note: The OptiX runtime library is provided by the NVIDIA driver. The OptiX SDK provides the headers used at build time.
 
@@ -235,6 +234,11 @@ cmake .. ^
     -G "Visual Studio 17 2022" ^
     -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON ^
     -DOptiX_INSTALL_DIR="C:/ProgramData/NVIDIA Corporation/OptiX SDK 8.1.0"
+```
+
+If the following error is displayed after building, uninstall CUDA and install a version of CUDA listed in "Verified build and test configurations" that is supported by your NVIDIA driver.
+```
+#error:  MSVC/cl.exe with traditional preprocessor is used. This may lead to unexpected compilation errors. Please switch to the standard conforming preprocessor by passing `/Zc:preprocessor` to cl.exe. You can define CCCL_IGNORE_MSVC_TRADITIONAL_PREPROCESSOR_WARNING to suppress this warning.
 ```
 
 ## Contributing
