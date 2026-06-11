@@ -152,6 +152,7 @@ SolTrace includes an OptiX-based runner built for GPU-accelerated ray tracing.
 * NVIDIA OptiX SDK 8.x or newer.
 * CMake 3.19 or newer.
 * C++17-capable compiler.
+    * If using Visual Studio, modify with "Desktop Development with C++" located in the Visual Studio Installer.
 
 Verified build and test configurations from GPU runner development include:
 
@@ -161,6 +162,8 @@ Verified build and test configurations from GPU runner development include:
 * Linux (Red Hat 8.0): gcc 11.2, CUDA 12.3, OptiX 8.0
 * Linux (Red Hat 8.0): gcc 12.1, CUDA 12.3, OptiX 8.0
 * Linux (Ubuntu 22.04): gcc 11.4, CUDA 12.8, OptiX 9.0
+
+CUDA 13.2 may have issues with the proprocessor, so it is not recommended to use that version.
 
 > Note: The OptiX runtime library is provided by the NVIDIA driver. The OptiX SDK provides the headers used at build time.
 
@@ -201,24 +204,38 @@ cd SolTrace
 mkdir build
 cd build
 cmake .. \
-    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON \
-    -DOptiX_INSTALL_DIR=/path/to/NVIDIA-OptiX-SDK
+    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON 
 cmake --build . -j4
 ```
 
 Windows example:
 
 ```bat
+git clone https://github.com/NREL/SolTrace.git
+cd SolTrace
 mkdir build
 cd build
 cmake .. ^
     -G "Visual Studio 17 2022" ^
-    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON ^
-    -DOptiX_INSTALL_DIR="C:/ProgramData/NVIDIA Corporation/OptiX SDK 8.1.0"
+    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON 
 cmake --build . --config Release -j
 ```
 
 If CMake cannot find the OptiX SDK automatically, set `OptiX_INSTALL_DIR` to the SDK root containing `include/optix.h`, or add that location to `CMAKE_PREFIX_PATH`.
+
+Linux example:
+```sh
+cmake .. \
+    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON\
+    -DOptiX_INSTALL_DIR=/path/to/NVIDIA-OptiX-SDK
+```
+Windows example:
+```bat
+cmake .. ^
+    -G "Visual Studio 17 2022" ^
+    -DSOLTRACE_BUILD_OPTIX_SUPPORT=ON ^
+    -DOptiX_INSTALL_DIR="C:/ProgramData/NVIDIA Corporation/OptiX SDK 8.1.0"
+```
 
 ## Contributing
 
